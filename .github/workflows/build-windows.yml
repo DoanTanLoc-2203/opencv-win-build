@@ -26,33 +26,30 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Configure OpenCV
+        shell: bash
         run: |
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -A x64 ^
-            -DCMAKE_BUILD_TYPE=Release ^
-            -DBUILD_SHARED_LIBS=ON ^
-            -DBUILD_opencv_world=ON ^
-            -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ^
-            -DWITH_CUDA=OFF ^
-            -DWITH_MSMF=ON ^
-            -DWITH_IPP=ON ^
-            -DWITH_OPENCL=ON ^
-            -DWITH_MSMF_DXVA=ON ^
+          cmake -G "Visual Studio 17 2022" -A x64 \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_SHARED_LIBS=ON \
+            -DBUILD_opencv_world=ON \
+            -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules \
+            -DWITH_CUDA=OFF \
+            -DWITH_MSMF=ON \
+            -DWITH_IPP=ON \
+            -DWITH_OPENCL=ON \
+            -DWITH_MSMF_DXVA=ON \
             -DCMAKE_INSTALL_PREFIX=install ..
 
       - name: Build OpenCV
+        shell: bash
         run: |
           cd build
           cmake --build . --config Release --target INSTALL
 
       - name: Zip artifacts
+        shell: bash
         run: |
           cd build
-          powershell Compress-Archive -Path install -DestinationPath opencv-win64.zip
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: opencv-win64
-          path: build/opencv-win64.zip
+          powershell Compre
