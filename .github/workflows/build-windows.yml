@@ -48,8 +48,7 @@ jobs:
           cd build
           cmake --build . --config Release --target INSTALL
 
-      - name: Zip artifacts
-        shell: bash
+      - name: Zip build artifact
         run: |
           cd build
-          powershell Compre
+          zip -r ../opencv-build.zip .
